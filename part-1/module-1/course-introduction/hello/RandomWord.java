@@ -18,35 +18,18 @@
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdRandom;
-import java.util.Scanner;
 
 public class RandomWord {
     public static void main(String[] args) {
-        boolean isFile = System.console() == null;
         String champion = "";
 
-        if (!isFile) {
-            String line = StdIn.readLine();
-            Scanner scanner = new Scanner(line);
-
-            for (int i = 1; scanner.hasNext(); i++) {
-                boolean chance = StdRandom.bernoulli(1.0 / i);
-                String contender = scanner.next();
-                if (chance) {
-                    champion = contender;
-                }
-            }
-            scanner.close();
-        } else {
-            for (int i = 1; !StdIn.isEmpty(); i++) {
-                boolean chance = StdRandom.bernoulli(1.0 / i);
-                String contender = StdIn.readString();
-                if (chance) {
-                    champion = contender;
-                }
+        for (int i = 1; !StdIn.isEmpty(); i++) {
+            boolean chance = StdRandom.bernoulli(1.0 / i);
+            String contender = StdIn.readString();
+            if (chance) {
+                champion = contender;
             }
         }
-
         System.out.println(champion);
     }
 }
