@@ -1,6 +1,24 @@
+
+/******************************************************************************
+ * Compilation: javac -cp .:path/to/algs4 RandomWord.java
+ * Execution: java -cp .:path/to/algs4 RandomWord.java
+ *
+ * Reads a sequence of words from standard input and prints one of those words uniformly 
+ * at random. Words are not stored in an array, but use Knuth’s method of reading the ith word, 
+ * selecting it with probability 1/i to be the champion, replacing the previous champion. 
+ * Prints the champion on completion of reading all words.
+ *
+ * % java -cp .:path/to/algs4 HelloWorld
+ * heads tails
+ * heads
+ *
+ * % java -cp .:path/to/algs4 RandomWord < animals8.txt
+ * emu
+ ******************************************************************************/
+
 import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
+import java.util.Scanner;
 
 public class RandomWord {
     public static void main(String[] args) {
@@ -9,16 +27,16 @@ public class RandomWord {
 
         if (!isFile) {
             String line = StdIn.readLine();
+            Scanner scanner = new Scanner(line);
 
-            for (int i = 1; !StdIn.isEmpty(); i++) {
-                String word = StdIn.readString();
-                System.out.println(i + ": " + word);
-
+            for (int i = 1; scanner.hasNext(); i++) {
+                boolean chance = StdRandom.bernoulli(1.0 / i);
+                String contender = scanner.next();
+                if (chance) {
+                    champion = contender;
+                }
             }
-            // int wordNum = 0;
-            // String line = StdIn.readLine();
-
-            // StdOut.println(StdIn.readString());
+            scanner.close();
         } else {
             for (int i = 1; !StdIn.isEmpty(); i++) {
                 boolean chance = StdRandom.bernoulli(1.0 / i);
@@ -30,23 +48,5 @@ public class RandomWord {
         }
 
         System.out.println(champion);
-
-        // for (int i = 1; !StdIn.isEmpty(); i++) {
-        // // System.out.println(StdIn.readString());
-        // boolean check = StdRandom.bernoulli(1.0 / i);
-        // String word = StdIn.readString();
-        // System.out.println(check);
-        // if (check) {
-        // System.out.println(word);
-        // break;
-        // }
-        // }
-
-        // boolean nextLine = StdIn.hasNextLine();
-        // while (nextLine) {
-        // System.out.println("String: " + StdIn.readString());
-        // System.out.println("Empty: " + StdIn.isEmpty());
-
-        // }
     }
 }

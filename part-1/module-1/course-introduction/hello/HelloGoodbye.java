@@ -5,6 +5,19 @@
  * and with the names for the goodbye message in reverse order).
  */
 
+/******************************************************************************
+ * Compilation: javac HelloGoodbye.java
+ * Execution: java HelloGoodbye
+ *
+ * Prints "Hello" and "Goodbye" messages to two names, with the greeting and
+ * valediction in opposite orders.
+ *
+ * % java HelloGoodbye Aaron Zelda
+ * Hello Aaron and Zelda.
+ * Goodbye Zelda and Aaron.
+ *
+ ******************************************************************************/
+
 public class HelloGoodbye {
     public static void main(String[] args) {
         if (args.length > 2) {
