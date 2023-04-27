@@ -28,6 +28,10 @@ public class Main {
         // }
         // String[][] result = ex13(newArr);
 
+        // Exercise 15
+        // int[] histoArr = { 1, 1, 3, 5, 4, 2, 2, 1, 5, 3, 4, 2, 3, 1, 6 };
+        // int[] histogram = ex15(histoArr, 7);
+        // System.out.println(Arrays.toString(histogram));
     }
 
     public static boolean ex3(String[] args) {
@@ -85,4 +89,15 @@ public class Main {
 
         return newArr;
     }
+
+    public static int[] ex15(int[] a, int m) {
+        int[] histogram = new int[m];
+
+        for (int i = 0; i < a.length; i++) {
+            histogram[a[i]]++;
+        }
+
+        return histogram;
+    }
+
 }
