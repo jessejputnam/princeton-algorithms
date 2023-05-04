@@ -1,8 +1,10 @@
 import java.util.Scanner;
 import java.awt.geom.Point2D;
 import edu.princeton.cs.algs4.Interval1D;
+import edu.princeton.cs.algs4.Interval2D;
 // import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Main {
@@ -18,6 +20,13 @@ public class Main {
         // for (Interval1D[] in : test) {
         // System.out.println(in[0] + ", " + in[1]);
         // }
+
+        // Exercise 1.2.3
+        // ex3(Integer.parseInt(args[0]), Double.parseDouble(args[1]),
+        // Double.parseDouble(args[2]));
+
+        // Exercise 1.2.6
+        System.out.println(ex6("ABCDEF", "BCDEFA"));
 
         scan.close();
     }
@@ -77,5 +86,46 @@ public class Main {
         }
 
         return intersecting;
+    }
+
+    public static void ex3(int n, double min, double max) {
+        // double
+        Interval2D[] boxes = new Interval2D[n];
+
+        for (int i = 0; i < n; i++) {
+            double[] xpts = { rand(min, max), rand(min, max) };
+            Arrays.sort(xpts);
+            Interval1D x = new Interval1D(xpts[0], xpts[1]);
+            double[] ypts = { rand(min, max), rand(min, max) };
+            Arrays.sort(ypts);
+            Interval1D y = new Interval1D(ypts[0], ypts[1]);
+            boxes[i] = new Interval2D(x, y);
+        }
+
+        for (Interval2D box : boxes) {
+            box.draw();
+        }
+    }
+
+    public static boolean ex6(String a, String b) {
+        if (a.length() != b.length())
+            return false;
+
+        char a0 = a.charAt(0);
+        for (int i = 0; i < b.length(); i++) {
+            if (b.charAt(i) == a0) {
+                String check = b.substring(i) + b.substring(0, i);
+                if (check.equals(a))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    private static double rand(double min, double max) {
+        Random r = new Random();
+        double spread = max - min;
+        double random = min + r.nextDouble() * spread;
+        return random;
     }
 }
