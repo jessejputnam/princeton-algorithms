@@ -42,6 +42,7 @@ public class ResizingArrayQueueOfStrings {
     }
 
     public String toString() {
+
         return Arrays.toString(this.arr);
     }
 

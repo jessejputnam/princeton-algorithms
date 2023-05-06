@@ -5,6 +5,8 @@ public class Main {
         ResizingArrayQueueOfStrings queue = new ResizingArrayQueueOfStrings(3);
         queue.enqueue("one");
         System.out.println(queue);
+        queue.enqueue("one");
+        System.out.println(queue);
     }
 
     public static boolean ex1(String str) {
