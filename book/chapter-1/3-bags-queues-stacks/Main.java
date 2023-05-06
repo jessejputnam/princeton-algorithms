@@ -7,6 +7,8 @@ public class Main {
         System.out.println(queue);
         queue.enqueue("one");
         System.out.println(queue);
+        queue.enqueue("one");
+        System.out.println(queue);
     }
 
     public static boolean ex1(String str) {
