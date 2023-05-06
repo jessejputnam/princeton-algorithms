@@ -2,8 +2,9 @@ public class Main {
     public static void main(String[] args) {
         // Exercise 1
         // System.out.println(ex1("([{[()]}([]{}))"));
-        // ResizingArrayQueueOfStrings queue = new ResizingArrayQueueOfStrings(3);
-
+        ResizingArrayQueueOfStrings queue = new ResizingArrayQueueOfStrings(3);
+        queue.enqueue("one");
+        System.out.println(queue);
     }
 
     public static boolean ex1(String str) {
