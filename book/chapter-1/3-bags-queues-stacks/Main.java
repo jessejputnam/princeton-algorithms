@@ -2,13 +2,31 @@ public class Main {
     public static void main(String[] args) {
         // Exercise 1
         // System.out.println(ex1("([{[()]}([]{}))"));
-        ResizingArrayQueueOfStrings queue = new ResizingArrayQueueOfStrings(3);
-        queue.enqueue("one");
-        System.out.println(queue);
-        queue.enqueue("one");
-        System.out.println(queue);
-        queue.enqueue("one");
-        System.out.println(queue);
+
+        // Exercise 1.3.14
+        // ResizingArrayQueueOfStrings queue = new ResizingArrayQueueOfStrings(3);
+
+        // LinkedList exercises
+        LinkedList<String> list = new LinkedList<>();
+        // System.out.println(list + " " + list.size());
+        list.add("One");
+        // System.out.println(list + " " + list.size());
+        list.add("Two");
+        // System.out.println(list + " " + list.size());
+        list.add("Three");
+        // System.out.println(list + " " + list.size());
+        list.add("Four");
+        // System.out.println(list + " " + list.size());
+        list.add("Five");
+        // System.out.println(list + " " + list.size());
+        // System.out.println(list.delete(2));
+        // System.out.println(list + " " + list.size());
+        // System.out.println(list.remove());
+        // System.out.println(list + " " + list.size());
+        // list.delete(1);
+        Node<String> node = list.get(1);
+        list.removeAfter(node);
+        System.out.println(list);
     }
 
     public static boolean ex1(String str) {
