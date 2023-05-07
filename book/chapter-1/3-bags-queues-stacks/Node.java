@@ -20,6 +20,6 @@ public class Node<Item> {
     }
 
     public String toString() {
-        return "[item: " + this.item + ", next: " + this.next.item() + "]";
+        return "[item: " + this.item + ", next: " + (this.next == null ? " - " : this.next.item()) + "]";
     }
 }

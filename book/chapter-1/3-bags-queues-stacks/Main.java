@@ -13,11 +13,11 @@ public class Main {
         // System.out.println(list + " " + list.size());
         list.add("Two");
         // System.out.println(list + " " + list.size());
-        list.add("Three");
+        list.add("One");
         // System.out.println(list + " " + list.size());
         list.add("Four");
         // System.out.println(list + " " + list.size());
-        list.add("Five");
+        list.add("One");
         // System.out.println(list + " " + list.size());
         // System.out.println(list.delete(2));
         // System.out.println(list + " " + list.size());
@@ -25,8 +25,11 @@ public class Main {
         // System.out.println(list + " " + list.size());
         // list.delete(1);
         Node<String> node = list.get(1);
-        list.removeAfter(node);
-        System.out.println(list);
+        list.insertAfter(node, new Node<>("Insert"));
+        // list.removeAfter(node);
+        System.out.println(list + " " + list.size());
+        System.out.println(list.removeAll());
+        System.out.println(list + " " + list.size());
     }
 
     public static boolean ex1(String str) {

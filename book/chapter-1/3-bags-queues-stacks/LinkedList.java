@@ -29,13 +29,44 @@ public class LinkedList<Item> {
         }
     }
 
-    public Item remove() {
+    public Item removeLast() {
         if (isEmpty()) {
             System.out.println("Error: list is empty");
             return null;
         }
 
         return delete(size() - 1);
+    }
+
+    public int removeAll() {
+        int total = size();
+        this.first = null;
+        this.size = 0;
+        return total;
+    }
+
+    public int removeAll(String key) {
+        int total = 0;
+
+        Node<Item> parent = null;
+        while (true) {
+            Node<Item> n = (parent == null) ? this.first : parent.next();
+
+            if (n == null)
+                break;
+
+            if (n.item().equals(key)) {
+                this.size--;
+                total++;
+                if (parent == null)
+                    this.first = n.next();
+                else
+                    parent.setNext(n.next());
+            } else {
+                parent = n;
+            }
+        }
+        return total;
     }
 
     public Item removeAfter(Node<Item> node) {
@@ -45,6 +76,15 @@ public class LinkedList<Item> {
         Item item = node.next().item();
         node.setNext(node.next().next());
         return item;
+    }
+
+    public void insertAfter(Node<Item> target, Node<Item> node) {
+        if (target == null || node == null)
+            return;
+        Node<Item> temp = target.next();
+        target.setNext(node);
+        target.next().setNext(temp);
+        this.size++;
     }
 
     public Item delete(int k) {
