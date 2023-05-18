@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         try (Scanner scan = new Scanner(System.in)) {
             int n = scan.nextInt();
-            UF uf = new QuickFindUF(n);
+            UF uf = new WeightedUnionUF(n);
 
             while (scan.hasNext()) {
                 int p = scan.nextInt();

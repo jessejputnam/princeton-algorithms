@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public interface UF {
     public int count();
 
