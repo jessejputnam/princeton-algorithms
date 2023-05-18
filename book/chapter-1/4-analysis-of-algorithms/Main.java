@@ -5,6 +5,7 @@ public class Main {
         // 1.4.16
         double[] arr = { 30, 1, 23, 40, 99, 98, 37, 101, 90, 129, 150, 3, 18, 64, 100, 300, 250, 101.5, 90.3 };
         System.out.println(Arrays.toString(closestPair(arr)));
+        // 1.4.17
         System.out.println(Arrays.toString(furthestPair(arr)));
     }
 
