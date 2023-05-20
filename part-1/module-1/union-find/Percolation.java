@@ -32,6 +32,10 @@ public class Percolation {
         id[len + 1].open = true;
     }
 
+    public double threshold() {
+        return (double) open / len;
+    }
+
     /** Opens specified cell and connects to adjacent open cells */
     public void open(int row, int col) {
         if (row < 1 || row > sqrt || col < 1 || col > sqrt)
