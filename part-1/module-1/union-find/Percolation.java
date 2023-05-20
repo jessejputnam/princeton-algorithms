@@ -1,145 +1,145 @@
 /**
+ * Percolation System Model
+ * 
+ * By convention, the row and column indices are integers between 1 and n, where
+ * (1, 1) is the upper-left site
+ * 
+ * Model a percolation system using an n-by-n grid of sites. Each site is
+ * either open or blocked. A full site is an open site that can be connected to
+ * an open site in the top row via a chain of neighboring (left, right, up,
+ * down) open sites. The system percolates if there is a full site in the
+ * bottom row. In other words, a system percolates if, in filling all open sites
+ * connected to the top row, that process fills some open site on the bottom
+ * row.
  */
 
 public class Percolation {
     private Node[] id;
     private int open;
     private int sqrt;
-    private int top;
     private int len;
 
     public Percolation(int n) {
+        if (n < 1)
+            throw errIllArg("Requires int larger than 0");
         sqrt = n;
-        top = -1;
         len = n * n;
-        id = new Node[len];
-        for (int i = 0; i < (len); i++)
+        id = new Node[len + 2];
+        for (int i = 0; i < (len + 2); i++)
             id[i] = new Node(i);
         open = 0;
+        id[0].open = true;
+        id[len + 1].open = true;
     }
 
+    /** Opens specified cell and connects to adjacent open cells */
     public void open(int row, int col) {
+        if (row < 1 || row > sqrt || col < 1 || col > sqrt)
+            throw errIllArg("Indices must be between 1 and n");
         int idx = getIdx(row, col);
-
-        // open node
         id[idx].open = true;
         open++;
-
-        connectOpen(row, col, idx);
+        connectToOpenCells(row, col, idx);
     }
 
+    /** Checks if cell is open, full or empty */
     public boolean isOpen(int row, int col) {
+        if (row < 1 || row > sqrt || col < 1 || col > sqrt)
+            throw errIllArg("Indices must be between 1 and n");
         int idx = getIdx(row, col);
         return id[idx].open;
     }
 
+    /** Checks if cell is full with coords */
     public boolean isFull(int row, int col) {
+        if (row < 1 || row > sqrt || col < 1 || col > sqrt)
+            throw errIllArg("Indices must be between 1 and n");
         int idx = getIdx(row, col);
-        return find(idx) == top;
+        return find(idx) == find(0);
     }
 
-    public boolean isFull(int idx) {
-        return find(idx) == top;
+    /** Checks if cell is full with array idx */
+    private boolean isFull(int idx) {
+        return find(idx) == find(0);
     }
 
+    /** Checks how many cells are open, empty or full */
     public int numberOfOpenSites() {
         return open;
     }
 
-    public void print() {
-        String output = "";
-        for (int i = 0; i < len; i++) {
-            if (!id[i].open)
-                output += "#";
-            else
-                output += isFull(i) ? "O" : ".";
-
-            if ((i + 1) % sqrt == 0)
-                output += "\n";
-        }
-        System.out.println(output);
+    /** Checks if there exists a path from top to bottom */
+    public boolean percolates() {
+        return find(0) == find(len + 1);
     }
 
-    // public boolean percolates() {
-
-    // }
-
+    /** Finds connected root of idx */
     private int find(int p) {
-        while (p != top && p != len && p != id[p].val) {
-            int val = id[p].val;
-            id[p].val = (val == top)
-                    ? top
-                    : (val == len)
-                            ? len
-                            : id[id[p].val].val;
+        while (p != id[p].val) {
+            id[p].val = id[id[p].val].val;
             p = id[p].val;
         }
         return p;
     }
 
+    /** Joins two nodes by root */
     private void union(int p, int q) {
-        int pID = find(p);
-        int qID = find(q);
+        int pID = find(p), qID = find(q);
         if (pID == qID)
             return;
 
-        // q's root is top or bottom
-        if (qID == top || qID == len) {
-            id[pID].val = qID;
-            return;
-        }
-
-        // p's root is top or bottom
-        if (pID == top || pID == len) {
-            id[qID].val = pID;
-            return;
-        }
-
-        // q's root is larger
-        if (id[pID].size < id[qID].size) {
+        if (id[pID].size < id[qID].size) { // q's root is larger
             id[pID].val = qID;
             id[qID].size += id[pID].size;
-            return;
+        } else { // p's root is larger
+            id[qID].val = pID;
+            id[pID].size += id[pID].size;
         }
-
-        // p's root is larger
-        id[qID].val = pID;
-        id[pID].size += id[pID].size;
     }
 
-    private void connectOpen(int row, int col, int idx) {
+    /** Joins cell to all open adjacent cells */
+    private void connectToOpenCells(int row, int col, int idx) {
         unionUp(row, col, idx);
         unionRight(row, col, idx);
         unionDown(row, col, idx);
         unionLeft(row, col, idx);
     }
 
+    /** Joins above cell if open */
     private void unionUp(int row, int col, int idx) {
-        int up = row == 0 ? top : getIdx(row - 1, col);
-        if (up == top || id[up].open)
+        int up = (row == 1) ? 0 : getIdx(row - 1, col);
+        if (id[up].open)
             union(up, idx);
     }
 
+    /** Joins right cell if open */
     private void unionRight(int row, int col, int idx) {
+        if (col == sqrt)
+            return;
         int right = getIdx(row, col + 1);
-        if (col < sqrt - 1)
+        if (id[right].open)
             union(right, idx);
     }
 
+    /** Joins down cell if open */
     private void unionDown(int row, int col, int idx) {
-        int down = row == sqrt - 1 ? len : getIdx(row + 1, col);
-        if (down == len || id[down].open)
+        int down = (row == sqrt) ? len + 1 : getIdx(row + 1, col);
+        if (id[down].open)
             union(down, idx);
     }
 
+    /** Joins left cell if open */
     private void unionLeft(int row, int col, int idx) {
+        if (col == 1)
+            return;
         int left = getIdx(row, col - 1);
-        if (col > 0)
+        if (id[left].open)
             union(left, idx);
     }
 
+    /** Gets array index from coords */
     private int getIdx(int row, int col) {
-        return (row * sqrt) + col;
+        return ((row - 1) * sqrt) + col;
     }
 
     private class Node {
@@ -152,5 +152,26 @@ public class Percolation {
             size = 1;
             open = false;
         }
+    }
+
+    /** Prints grid showing blocked, empty, and full cells */
+    public void print() {
+        String output = "";
+        for (int i = 1; i < len + 1; i++) {
+            if (!id[i].open)
+                output += "☐";
+            else
+                output += isFull(i) ? "☒" : "◼︎";
+
+            if (i % sqrt == 0 && i != len)
+                output += "\n";
+        }
+        System.out.println("^^" + (isFull(0) ? "☒" : " ") + "^^");
+        System.out.println(output);
+        System.out.println("_\\" + (isFull(len + 1) ? "☒" : "◼︎") + "/_");
+    }
+
+    private IllegalArgumentException errIllArg(String msg) {
+        return new IllegalArgumentException(msg);
     }
 }
