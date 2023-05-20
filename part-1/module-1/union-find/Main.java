@@ -17,75 +17,75 @@
  *
  ******************************************************************************/
 
-public class Main {
-    public static void main(String[] args) {
-        Percolation perc = new Percolation(5);
-        try {
-            clearScreen();
-            perc.print();
-            Thread.sleep(250);
-            perc.open(1, 1);
-            clearScreen();
-            perc.print();
-            Thread.sleep(250);
-            perc.open(2, 1);
-            clearScreen();
-            perc.print();
-            Thread.sleep(250);
-            perc.open(2, 2);
-            clearScreen();
-            perc.print();
-            Thread.sleep(250);
-            perc.open(1, 2);
-            clearScreen();
-            perc.print();
-            Thread.sleep(250);
-            perc.open(3, 2);
-            clearScreen();
-            perc.print();
-            Thread.sleep(250);
-            perc.open(4, 4);
-            clearScreen();
-            perc.print();
-            Thread.sleep(250);
-            perc.open(4, 3);
-            clearScreen();
-            perc.print();
-            Thread.sleep(250);
-            perc.open(2, 4);
-            clearScreen();
-            perc.print();
-            Thread.sleep(250);
-            perc.open(2, 3);
-            clearScreen();
-            perc.print();
-            Thread.sleep(250);
-            perc.open(4, 1);
-            clearScreen();
-            perc.print();
-            Thread.sleep(250);
-            perc.open(3, 3);
-            clearScreen();
-            perc.print();
-            Thread.sleep(250);
-            perc.open(5, 1);
-            clearScreen();
-            perc.print();
-            Thread.sleep(250);
-            perc.open(5, 2);
-            clearScreen();
-            perc.print();
-            Thread.sleep(250);
-            perc.open(5, 3);
-            clearScreen();
-            perc.print();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+// public class Main {
+// public static void main(String[] args) {
+// Percolation perc = new Percolation(5);
+// try {
+// clearScreen();
+// perc.print();
+// Thread.sleep(250);
+// perc.open(1, 1);
+// clearScreen();
+// perc.print();
+// Thread.sleep(250);
+// perc.open(2, 1);
+// clearScreen();
+// perc.print();
+// Thread.sleep(250);
+// perc.open(2, 2);
+// clearScreen();
+// perc.print();
+// Thread.sleep(250);
+// perc.open(1, 2);
+// clearScreen();
+// perc.print();
+// Thread.sleep(250);
+// perc.open(3, 2);
+// clearScreen();
+// perc.print();
+// Thread.sleep(250);
+// perc.open(4, 4);
+// clearScreen();
+// perc.print();
+// Thread.sleep(250);
+// perc.open(4, 3);
+// clearScreen();
+// perc.print();
+// Thread.sleep(250);
+// perc.open(2, 4);
+// clearScreen();
+// perc.print();
+// Thread.sleep(250);
+// perc.open(2, 3);
+// clearScreen();
+// perc.print();
+// Thread.sleep(250);
+// perc.open(4, 1);
+// clearScreen();
+// perc.print();
+// Thread.sleep(250);
+// perc.open(3, 3);
+// clearScreen();
+// perc.print();
+// Thread.sleep(250);
+// perc.open(5, 1);
+// clearScreen();
+// perc.print();
+// Thread.sleep(250);
+// perc.open(5, 2);
+// clearScreen();
+// perc.print();
+// Thread.sleep(250);
+// perc.open(5, 3);
+// clearScreen();
+// perc.print();
+// } catch (InterruptedException e) {
+// e.printStackTrace();
+// }
+// }
 
-    public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-}
+// public static void clearScreen() {
+// System.out.print("\033[H\033[2J");
+// System.out.flush();
+// }
+// }
