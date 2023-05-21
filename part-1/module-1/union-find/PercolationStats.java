@@ -55,19 +55,17 @@ public class PercolationStats {
     }
 
     // test client (see below)
-    public static void main(String[] args) {
-        // if (args.length != 2)
-        // throw noArgs();
+    // public static void main(String[] args) {
+    // if (args.length != 2)
+    // throw noArgs();
 
-        // int n = Integer.parseInt(args[0]);
-        // int trials = Integer.parseInt(args[1]);
+    // int n = Integer.parseInt(args[0]);
+    // int trials = Integer.parseInt(args[1]);
 
-        // PercolationStats stats = new PercolationStats(n, trials);
-        // printResults(stats);
-        byte b = 10;
-        System.out.println(b);
+    // PercolationStats stats = new PercolationStats(n, trials);
+    // printResults(stats);
 
-    }
+    // }
 
     private static void printResults(PercolationStats stats) {
         System.out.println("mean                    = " + stats.mean());

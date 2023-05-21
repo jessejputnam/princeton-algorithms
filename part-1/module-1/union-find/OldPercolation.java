@@ -13,20 +13,21 @@
  * row.
  */
 
-public class Percolation {
+public class OldPercolation {
     private Node[] id;
     private int sqrt;
     private int len;
 
-    public Percolation(int n) {
+    public OldPercolation(int n) {
         if (n < 1)
             throw errIllArg("Requires int larger than 0");
         sqrt = n;
         len = n * n;
-        id = new Node[len + 1];
-        for (int i = 0; i < (len + 1); i++)
+        id = new Node[len + 2];
+        for (int i = 0; i < (len + 2); i++)
             id[i] = new Node(i);
         id[0].open = true;
+        id[len + 1].open = true;
     }
 
     /** Opens specified cell and connects to adjacent open cells */
@@ -67,10 +68,7 @@ public class Percolation {
 
     /** Checks if there exists a path from top to bottom */
     public boolean percolates() {
-        for (int i = len - sqrt; i < len + 1; i++)
-            if (find(i) == find(0))
-                return true;
-        return false;
+        return find(0) == find(len + 1);
     }
 
     /** Finds connected root of idx */
@@ -123,9 +121,7 @@ public class Percolation {
 
     /** Joins down cell if open */
     private void unionDown(int row, int col, int idx) {
-        if (row == sqrt)
-            return;
-        int down = getIdx(row + 1, col);
+        int down = (row == sqrt) ? len + 1 : getIdx(row + 1, col);
         if (id[down].open)
             union(down, idx);
     }
