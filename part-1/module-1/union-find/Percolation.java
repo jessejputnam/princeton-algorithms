@@ -15,7 +15,6 @@
 
 public class Percolation {
     private Node[] id;
-    private int open;
     private int sqrt;
     private int len;
 
@@ -27,22 +26,17 @@ public class Percolation {
         id = new Node[len + 2];
         for (int i = 0; i < (len + 2); i++)
             id[i] = new Node(i);
-        open = 0;
         id[0].open = true;
         id[len + 1].open = true;
-    }
-
-    public double threshold() {
-        return (double) open / len;
     }
 
     /** Opens specified cell and connects to adjacent open cells */
     public void open(int row, int col) {
         if (row < 1 || row > sqrt || col < 1 || col > sqrt)
             throw errIllArg("Indices must be between 1 and n");
+
         int idx = getIdx(row, col);
         id[idx].open = true;
-        open++;
         connectToOpenCells(row, col, idx);
     }
 
@@ -50,6 +44,7 @@ public class Percolation {
     public boolean isOpen(int row, int col) {
         if (row < 1 || row > sqrt || col < 1 || col > sqrt)
             throw errIllArg("Indices must be between 1 and n");
+
         int idx = getIdx(row, col);
         return id[idx].open;
     }
@@ -62,14 +57,13 @@ public class Percolation {
         return find(idx) == find(0);
     }
 
-    /** Checks if cell is full with array idx */
-    private boolean isFull(int idx) {
-        return find(idx) == find(0);
-    }
-
     /** Checks how many cells are open, empty or full */
     public int numberOfOpenSites() {
-        return open;
+        int total = 0;
+        for (int i = 1; i < len + 1; i++)
+            if (id[i].open)
+                total++;
+        return total;
     }
 
     /** Checks if there exists a path from top to bottom */
@@ -95,7 +89,7 @@ public class Percolation {
         if (id[pID].size < id[qID].size) { // q's root is larger
             id[pID].val = qID;
             id[qID].size += id[pID].size;
-        } else { // p's root is larger
+        } else { // p's root is larger or equal
             id[qID].val = pID;
             id[pID].size += id[pID].size;
         }
@@ -156,23 +150,6 @@ public class Percolation {
             size = 1;
             open = false;
         }
-    }
-
-    /** Prints grid showing blocked, empty, and full cells */
-    public void print() {
-        String output = "";
-        for (int i = 1; i < len + 1; i++) {
-            if (!id[i].open)
-                output += "☐";
-            else
-                output += isFull(i) ? "☒" : "◼︎";
-
-            if (i % sqrt == 0 && i != len)
-                output += "\n";
-        }
-        System.out.println("^^" + (isFull(0) ? "☒" : " ") + "^^");
-        System.out.println(output);
-        System.out.println("_\\" + (isFull(len + 1) ? "☒" : "◼︎") + "/_");
     }
 
     private IllegalArgumentException errIllArg(String msg) {
